@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    background: url(../img/foto3.jpg) no-repeat center center fixed;
+    width: 100%;
+}
+a{
+    text-decoration: none;
+}
+/* Header section*/
+header{
+    width: 1140px;
+    max-width: 1200px;
+    margin: auto;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+}
+header .navbar ul{
+    float: right;
+    margin-right: 20px;
+}
+header .navbar ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+header .navbar a{
+    color: #fff;
+    margin-right: 5px;
+    padding: 5px 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    transition: 0.3s;
+    font-weight: 500;
+    text-decoration: none;
+}
+ header .navbar a:hover{
+    background: rgb(7, 156, 117);
+    border-radius: 2px;
+}
+
+header .toggle-btn i{
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    
+    display: none;
+}
+ header .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    height: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+header .dropdown-menu .open{
+    height: 240px;
+}
+header .dropdown-menu a{
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+
+}
+header .dropdown-menu a:hover{
+    background: rgb(7, 156, 117);
+    border-radius: 2px;
+}
+.dropdown-menu li{
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media(max-width: 992px){
+    header .navbar .links{
+        display: none;
+    }
+    header .toggle-btn i{
+        justify-items: right;
+        display: block;
+        
+    }
+}
+
+
+/*Cards section*/
+.title h1{
+    text-align: center;
+    padding-top: 50px;
+    font-size: 42px;
+    color: #006236;
+}
+.title h1::after{
+    content: "";
+    height: 4px;
+    width: 230px;
+    background-color: #19c753;
+    display: block;
+    margin: auto;
+}
+.services{
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 75px auto;
+    text-align: center;
+}
+.card{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px 20px;
+    padding: 20px 20px;
+    background-color: #efefef;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.card:hover{
+    background-color: rgb(104, 230, 196);
+    transition: 0.4s ease;
+}
+.card .icon{
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+.card h2{
+    font-size: 28px;
+    color: rgb(7, 156, 117);
+    margin-bottom: 20px;
+}
+.card p{
+    font-size: 17px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    color: #5e5e5e
+}
+.button{
+    font-size: 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: rgb(7, 156, 117);
+    padding: 8px 12px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+}
+.button:hover{
+    background-color: rgb(165, 108, 1);
+}
+@media screen and (max-width: 940px){
+    .services{
+        display: flex;
+        flex-direction: column;
+    }
+    .card{
+        width: 85%;
+        display: flex;
+        margin: 20px 0px;
+    }
+}
+
+.contact{
+    box-sizing: content-box;
+    background: white;
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 0px 10px 0px #666;
+}
+
+.contact-map{
+    width: 100%;
+    height: auto;
+    flex: 50%;
+}
+.contact-map iframe{
+    width: 100%;
+    height: 100%;
+
+}
+.contact-form{
+    width: 100%;
+    height: auto;
+    flex: 50%;
+}
+.contact-form h1{
+    margin-bottom: 10px;
+    color: #006236;
+}
+.contact-form-txt{
+    width: 100%;
+    height: 40px;
+    color: #006236; 
+    border: 1px solid #bcbcbc;
+    border-radius: 50px;
+    outline: none;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+.contact-form-txt::placeholder{
+    color: #aaa;
+}
+.contact-form-textarea{
+    width: 100%;
+    height: 130px;
+    color: #000; 
+    border: 1px solid #bcbcbc;
+    border-radius: 50px;
+    outline: none;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-family: "Poppins", sans-serif;
+}
+.contact-form-textarea::placeholder{
+    color: #aaa;
+}
+.contact-form-btn{
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background: #006236;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+.content{
+    box-sizing: border-box;
+}
+.video{
+    width: 50%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.video::after{
+    content: "";
+    display: block;
+    width: 100%;
+  padding-bottom: 10px;
+}
+.escoda_video{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/*Footer section*/
+.pie{
+    background-color: rgb(35, 188, 117);
+    box-sizing: border-box;
+    font-family: "Exo 2", sans-serif;
+}
+.pie .header .logo .title{
+    font-size: 12px;
+    display: flex;
+    align-items: left;
+    font-weight: bold;
+}
+.pie .header .logo .logotipo{
+    font-size: 10px;
+    color: #fff;
+}
+.pie .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+ .pie .header .redes .fb,
+ .pie .header .redes .tw,
+ .pie .header .redes .in,
+ .pie .header .redes .li,
+ .pie .header .redes .yo{
+    background: rgb(7, 156, 117);
+    padding: 10px;
+    border-radius: 80px;
+    color: #fff;
+    align-items: right;
+ }
+
+.pie .section{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 40px;
+}
+.pie .section div{
+    display: flex;
+    flex-direction: column;
+}
+.pie .section div h2{
+    color: #fff;
+    padding: 10px 0;
+}
+.pie .section a{
+    color: rgb(141, 241, 214);
+    padding: 5px;
+
+}
+.pie .section form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pie .section form button{
+    padding: 10px 20px;
+    background: rgb(7, 156, 117);
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+.pie .derechos{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgb(0, 84, 45);
+    color: #fff;
+}

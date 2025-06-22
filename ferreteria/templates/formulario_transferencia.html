@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Confirmación de Transferencia Bancaria</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">Datos Bancarios</h5>
+                    <div class="alert alert-info">
+                        <p><strong>Banco:</strong> {{ datos_bancarios.banco }}</p>
+                        <p><strong>Tipo de Cuenta:</strong> {{ datos_bancarios.tipo_cuenta }}</p>
+                        <p><strong>Número de Cuenta:</strong> {{ datos_bancarios.numero_cuenta }}</p>
+                        <p><strong>RUT Titular:</strong> {{ datos_bancarios.rut_titular }}</p>
+                        <p><strong>Nombre Titular:</strong> {{ datos_bancarios.nombre_titular }}</p>
+                        <p><strong>Monto a Transferir:</strong> ${{ datos_bancarios.monto }}</p>
+                    </div>
+                    <div class="alert alert-warning">
+                        <p><strong>Importante:</strong> Una vez realizada la transferencia, por favor suba el comprobante en el formulario.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5 class="mb-3">Subir Comprobante</h5>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="comprobante" class="form-label">Comprobante de Transferencia (PDF o Imagen)</label>
+                            <input class="form-control" type="file" id="comprobante" name="comprobante" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comentarios" class="form-label">Comentarios (Opcional)</label>
+                            <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Enviar Comprobante</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

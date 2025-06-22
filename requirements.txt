@@ -1,0 +1,11 @@
+django-admin-interface
+django-crispy-forms
+crispy-bootstrap4
+setuptools
+bcchapi
+djangorestframework
+transbank-sdk
+pandas
+python-docx
+matplotlib
+reportlab

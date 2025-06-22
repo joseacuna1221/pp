@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+{% block contenido %}
+{% load humanize %}
+<div class="container">
+    <div class="card">
+        <h3> Detalles Pedido: {{detalles.0.id_pedido}} </h3><br>
+        <form method="POST" action="{% url 'despachar' detalles.0.id_pedido%}">
+         {% csrf_token %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Img</th>
+                        <th>Código Pedido</th>
+                        <th>Código Producto</th>
+                        <th>Nombre Producto</th>
+                        <th>Categoria</th>
+                        <th>Cantidad</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in detalles%}
+                    <tr>
+                        <td>
+                            <img src="{{ d.id_producto.imagen.url }}" style="height: 60px; width: 60px;">
+                        </td>
+                        <td>{{ d.id_pedido }}</td>
+                        <td>{{ d.id_producto }}</td>
+                        <td>{{ d.id_producto.nombre }}</td>
+                        <td>{{ d.id_producto.categoria }}</td>
+                        <td>{{ d.cantidad }}</td>
+                        <td>
+                            <input type="checkbox"  class="estado-check"  name="estado_{{d.id_pedido }}">
+                            <a> Listo</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </tr>
+            </table>
+            <div class="col-12 mb-3">
+            <button type="submit" id="btn-despachar" class="btn btn-success btn-lg btn-block" disabled>🚚 Despachar</button>
+            </div>
+        </form>
+            <a href="{% url 'bodega' %}" class="btn btn-warning" style=" margin: 5px 5px;">Volver </a>
+    </div>
+    <br>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const checkboxes = document.querySelectorAll('.estado-check');
+  const botonDespachar = document.getElementById('btn-despachar');
+
+  function validarCheckboxes() {
+    const allChecked = Array.from(checkboxes).every(c => c.checked);
+    botonDespachar.disabled = !allChecked;
+  }
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', validarCheckboxes);
+  });
+
+  validarCheckboxes();  
+});
+</script>
+{% endblock %}

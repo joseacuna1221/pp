@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card text-center">
+        <div class="card-header bg-success text-white">
+            <h3>¡Gracias por tu compra!</h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <h4 class="alert-heading">Pedido #{{ pedido.id_pedido }} en proceso de verificación</h4>
+                <p>Hemos recibido tu comprobante de transferencia y estamos verificando el pago.</p>
+                <p>Por favor revisa tu correo electrónico (<strong>{{ request.user.email }}</strong>) en las próximas horas para recibir la confirmación.</p>
+                <hr>
+                <p class="mb-0">Si tienes alguna duda, contáctanos a contacto@ferremas.com</p>
+            </div>
+            <a href="{% url 'tienda' %}" class="btn btn-primary">Volver a la tienda</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

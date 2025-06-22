@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<style>
+    .producto-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .producto-header {
+        display: flex;
+        align-items: center;
+        background-color: #f0f4f7;
+        padding: 20px;
+    }
+    .producto-header img {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+    .producto-header h2 {
+        margin: 0;
+        font-size: 1.8rem;
+        color: #198754;
+    }
+    .producto-body {
+        padding: 20px;
+        background-color: #ffffff;
+    }
+    .producto-body h6 {
+        font-weight: 600;
+        color: #6c757d;
+        margin-top: 10px;
+    }
+    .producto-precio {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #0d6efd;
+        margin-bottom: 10px;
+    }
+    .producto-footer {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .producto-footer .btn {
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="producto-card">
+                <div class="producto-header">
+                    <img src="{{ producto.imagen.url }}" alt="Imagen del producto">
+                    <div>
+                        <h6 class="text-muted mb-1">Código: {{ producto.idProducto }}</h6>
+                        <h2>{{ producto.nombre }}</h2>
+                    </div>
+                </div>
+
+                <div class="producto-body">
+                    <h6>Descripción</h6>
+                    <p>{{ producto.descripcion }}</p>
+
+                    <h6>Categoría</h6>
+                    <p>{{ producto.categoria }}</p>
+
+                    <h6>Precio</h6>
+                    <p class="producto-precio">${{ producto.precio|intcomma }}</p>
+                </div>
+
+                <div class="producto-footer">
+                    <small class="text-muted">Categoría: {{ producto.categoria }}</small>
+                    <div>
+                        <a href="{% url 'tienda' %}" class="btn btn-outline-success">Productos</a>
+                        <a href="{% url 'tienda' %}" class="btn btn-success">Comprar</a>
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <a href="{% url 'modificar' producto.idProducto %}" class="btn btn-outline-danger">Modificar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

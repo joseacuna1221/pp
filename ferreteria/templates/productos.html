@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% block contenido %}
+{% load humanize %}
+ 
+    
+    <div class="container">
+
+
+        <div class="card-container">
+        
+            {% for p in productos%}
+            
+            <article class="card-article">
+           
+            <img src="{{ p.imagen.url }}" alt="image" class="card-img">
+            
+            <div class="card-data">
+                
+                <h2 class="card-title">{{ p.nombre | capfirst}}</h2>
+                <h3 style="color: rgb(0, 112, 75);"> $ {{ p.precio | intcomma }}</h3>
+                <a href="{% url 'detalle' p.idProducto %}" class="btn btn-outline-success" style="float: right;" > Info producto </a>
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'modificar' p.idProducto %}" class="btn btn-danger">Modificar</a>
+                {% endif %}
+            </div>
+            </article> 
+            {% endfor %} 
+        </div>
+       
+        
+    </div>
+{% endblock %}
+    

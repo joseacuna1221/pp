@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0"><i class="fas fa-check-circle"></i> Pago Completado</h2>
+        </div>
+        
+        <div class="card-body">
+            <div class="alert alert-success">
+                <h4 class="alert-heading">¡Gracias por tu compra!</h4>
+                <p>Tu pago ha sido procesado exitosamente.</p>
+                <hr>
+                <p class="mb-0">N° de pedido: <strong>{{ pedido.id_pedido }}</strong></p>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>Detalles del Pedido</h5>
+                    <p><strong>Fecha:</strong> {{ fecha }}</p>
+                    <p><strong>Estado:</strong> <span class="badge bg-success">Completado</span></p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h3>Total: ${{ total|intcomma }}</h3>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>P. Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in detalles %}
+                        <tr>
+                            <td>{{ item.codigo }}</td>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>${{ item.precio_unitario|intcomma }}</td>
+                            <td>${{ item.subtotal|intcomma }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <a href="{% url 'productos' %}" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Seguir Comprando
+                </a>
+                <a href="#" class="btn btn-outline-dark">
+                    <i class="fas fa-file-pdf"></i> Descargar Comprobante
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

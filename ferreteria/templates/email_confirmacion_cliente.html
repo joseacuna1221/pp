@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmación de recepción</title>
+</head>
+<body>
+    <h2>Hola {{ usuario.username }},</h2>
+    <p>Hemos recibido tu comprobante de transferencia para el Pedido #{{ pedido.id_pedido }}.</p>
+    
+    <p><strong>Detalles del pedido:</strong></p>
+    <ul>
+        <li>N° Pedido: {{ pedido.id_pedido }}</li>
+        <li>Fecha: {{ pedido.fecha_compra|date:"d/m/Y H:i" }}</li>
+        <li>Total: ${{ pedido.total }}</li>
+        <li>Estado: En verificación</li>
+    </ul>
+    
+    {% if comentarios %}
+    <p><strong>Tus comentarios:</strong><br>
+    {{ comentarios }}</p>
+    {% endif %}
+    
+    <p>Estamos verificando tu pago y te notificaremos por correo una vez confirmado.</p>
+    
+    <p>Si tienes alguna duda, puedes responder a este correo.</p>
+    
+    <p>Gracias por tu compra,<br>
+    Equipo de Ferretería Ferremas</p>
+</body>
+</html>

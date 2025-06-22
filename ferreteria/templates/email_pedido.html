@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmación de Pedido</title>
+</head>
+<body>
+    <h2>Gracias por tu compra en Ferreteria Ferremas</h2>
+    <p>Hola {{ pedido.user.username }},</p>
+    <p>Tu pedido #{{ pedido.id_pedido }} ha sido procesado exitosamente.</p>
+    
+    <h3>Detalles del pedido:</h3>
+    <ul>
+        <li><strong>Fecha:</strong> {{ pedido.fecha_compra|date:"d/m/Y H:i" }}</li>
+        <li><strong>Total:</strong> ${{ pedido.total|floatformat:0 }}</li>
+        <li><strong>Tipo de envío:</strong> {{ pedido.tipo_envio|capfirst }}</li>
+    </ul>
+    
+    <h3>Productos:</h3>
+    <ul>
+        {% for detalle in detalles %}
+        <li>{{ detalle.id_producto.nombre }} - {{ detalle.cantidad }} x ${{ detalle.subtotal|floatformat:0 }}</li>
+        {% endfor %}
+    </ul>
+    
+    <p>Adjunto encontrarás el comprobante de tu pedido en formato PDF.</p>
+    
+    <p>Si tienes alguna pregunta, no dudes en contactarnos.</p>
+    
+    <p>Saludos cordiales,<br>
+    El equipo de Ferreteria Ferremas</p>
+</body>
+</html>

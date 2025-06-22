@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuevo comprobante recibido</title>
+</head>
+<body>
+    <h2>Nuevo comprobante de transferencia recibido</h2>
+    
+    <p><strong>Detalles del pedido:</strong></p>
+    <ul>
+        <li>N° Pedido: {{ pedido.id_pedido }}</li>
+        <li>Cliente: {{ usuario.username }} ({{ usuario.email }})</li>
+        <li>Fecha: {{ pedido.fecha_compra|date:"d/m/Y H:i" }}</li>
+        <li>Total: ${{ pedido.total }}</li>
+    </ul>
+    
+    {% if comentarios %}
+    <p><strong>Comentarios del cliente:</strong><br>
+    {{ comentarios }}</p>
+    {% endif %}
+    
+    <p>Por favor verifica el comprobante adjunto y actualiza el estado del pedido en el sistema.</p>
+    
+    <p>--<br>
+    Sistema Automático Ferremas</p>
+</body>
+</html>

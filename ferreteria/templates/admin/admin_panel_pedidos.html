@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estiloss.css' %}">
+{% endblock %}
+{% block contenido %}
+<main class="container">
+    <h2 class="text-center text-primary my-4">Administración de Pedidos</h2>
+    
+    <div class="card mb-4">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Tipo de Envío</th>
+                        <th>Total</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in page_obj %}
+                    <tr>
+                        <td>{{ pedido.id_pedido }}</td>
+                        <td>{{ pedido.user.username }}</td>
+                        <td>{{ pedido.fecha_compra|date:"d/m/Y H:i" }}</td>
+                        
+                        <td>
+                            <select class="form-select form-select-sm pedido-estado" data-id="{{ pedido.id_pedido }}">
+                                <option value="creado" {% if pedido.estado == 'creado' %}selected{% endif %}>Creado</option>
+                                <option value="pagado" {% if pedido.estado == 'pagado' %}selected{% endif %}>Pagado</option>
+                                <option value="rechazado" {% if pedido.estado == 'rechazado' %}selected{% endif %}>Rechazado</option>
+                                <option value="preparando" {% if pedido.estado == 'preparando' %}selected{% endif %}>Preparando</option>
+                                <option value="despachado" {% if pedido.estado == 'despachado' %}selected{% endif %}>En reparto</option>
+                                <option value="entregado" {% if pedido.estado == 'entregado' %}selected{% endif %}>Entregado</option>
+                            </select>
+                        </td>
+
+                        <td>{{ pedido.get_tipo_envio_display }}</td>
+                        <td>${{ pedido.total }}</td>
+                        <td>
+                            {% if pedido.id_pedido %}
+                                <a href="{% url 'detallepedido' pedido.id_pedido %}" class="btn btn-sm btn-outline-info">Ver Detalle</a>
+                            {% else %}
+                                <span class="text-muted">Sin ID</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="7" class="text-center">No hay pedidos registrados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <nav aria-label="Paginación de pedidos">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                    </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+                {% endif %}
+            </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const selects = document.querySelectorAll('.pedido-estado');
+    selects.forEach(select => {
+        select.addEventListener('change', function () {
+            const pedidoId = this.dataset.id;
+            const nuevoEstado = this.value;
+
+            fetch(`/panel/actualizar_estado_pedido/${pedidoId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ estado: nuevoEstado })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al actualizar el estado');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Estado actualizado:", data);
+            })
+            .catch(error => {
+                alert("Error actualizando el estado del pedido");
+                console.error(error);
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

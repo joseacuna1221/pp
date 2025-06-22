@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
+{% endblock %}
+{% load crispy_forms_tags %}
+    {% block contenido %}
+    
+    
+    <div class="section">
+        <div class="title">
+            <h1>Sobre nosotros</h1>
+        </div>
+        <div class="services">
+            <div class="card">
+                <div class="icon">
+                    <i class="fas fa-book"></i>
+
+                </div>
+                <h2>VISIÓN</h2>
+                <p>Ser la principal plataforma de comercio electrónico de productos ecológicos para la calefacción del hogar, reconocida por nuestro compromiso con la sostenibilidad y 
+                    la calidad de vida de nuestros clientes, liderando el mercado con innovación y responsabilidad ambiental. Nos esforzamos por ser un referente global en la transición 
+                    hacia métodos de calefacción más limpios y eficientes, impulsando un futuro más verde y habitable para las generaciones venideras. </p>
+                <a href="{% url 'tienda'%}" class="button" style="text-decoration: none;">Saber más</a>    
+            </div>
+            <div class="card">
+                <div class="icon">
+                    <i class="fas fa-globe"></i>
+
+                </div>
+                <h2>MISION</h2>
+                <p> Proveer soluciones innovadoras y ecológicas para la calefacción del hogar mediante la venta de pellets de madera ecológicos, 
+                    estufas de madera eficientes y herramientas eléctricas especializadas en la decoración del hogar.
+                    Nos esforzamos por ofrecer productos de alta calidad que promuevan un ambiente interior saludable y sostenible, 
+                    contribuyendo así a la reducción de la huella de carbono de nuestros clientes.</p>
+                <a href="{% url 'tienda'%}"  class="button" style="text-decoration: none;">Saber más</a>    
+            </div>
+            <div class="card">
+                <div class="icon">
+                    <i class="fas fa-pencil"></i>
+
+                </div>
+                <h2>OBJETIVO</h2>
+                <p>Nuestro objetivo es facilitar a nuestros clientes el acceso a productos ecológicos y eficientes para la calefacción del hogar, 
+                    mediante un modelo de negocio de dropshipping que garantice conveniencia y calidad. Buscamos educar y concienciar sobre las ventajas ambientales y 
+                    económicas de la utilización de pellets de madera y estufas eficientes, al tiempo que ofrecemos 
+                    herramientas eléctricas que ayuden a embellecer y personalizar los espacios interiores de manera sostenible.</p>
+                <a href="{% url 'tienda'%}"  class="button" style="text-decoration: none;">Saber más</a>    
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="contact">
+        <div class="contac-in">
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.4846827664264!2d-70.63103612541356!3d-33.27998078880037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662b82f5a163d5d%3A0xdf54c44d01818fa0!2sChicureo!5e0!3m2!1ses-419!2scl!4v1716360711066!5m2!1ses-419!2scl" 
+                width="100%" height="auto"  frameborder="0" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="contact-form">
+                <br>
+               
+                <h1>Contactanos</h1>
+                <form class="need-validated" novalidate method="POST"  >
+
+                    {% csrf_token %}
+
+                    {{ form | crispy}}
+                    <br>
+                    <input type="submit"  class="contact-form-btn" required/>
+                </form>
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+    <br>
+  
+        <div class="video">
+            <iframe  width="500px" height="500px" class="esdacode_video" src="https://www.youtube.com/embed/_FhoxXGD1Ek?si=hdgJoFLAjUiIiO8p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        
+    </div>
+    {% endblock%}

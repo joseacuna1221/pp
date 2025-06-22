@@ -1,0 +1,64 @@
+{% extends 'base.html '%}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+
+{% block contenido %}
+{% load humanize %}
+
+<div class="container">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 style="color: darkgreen;">Pedidos Pagados</h2>
+            <a href="{% url 'vendedor' %}" class="btn btn-warning" style=" margin: 5px 5px; float: right;" >Volver</a>
+            <table class="table table-striped table-hover table-responsive-sm">
+                <tr>
+                    <th>Id Pedido</th>
+                    <th>Fecha Compra</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Tipo Envio</th>
+                    <th>Total</th>
+                    <th>Entregas</th>
+                </tr>
+                <!-- Cambiar el if de estado a pagado despues -->
+                {% for p in pedido %}
+                 <form method="POST" action="{% url 'entregar' p.id_pedido%}">
+                {% csrf_token %}
+                <tr>
+                    <td>{{p.id_pedido}}</td>
+                    <td>{{ p.fecha_compra }}</td>
+                    <td>{{ p.user }}</td>
+                    {% if p.estado == "despachado"%}
+                        <td>Listo para retiro</td>                    
+                    {%else%}
+                        <td>Producto Entregado</td>
+                    {%endif%}
+                    
+                    <td>{{p.tipo_envio}}</td>                    
+                    <td>${{p.total | intcomma}}</td>
+                    {% if p.estado == "despachado"%}
+                        <td>
+                        <button type="submit" id="btn-entregar" class="btn btn-success" style=" margin: 5px 5px;">Entregar</button>
+                        </td>                     
+                    {%else%}
+                        <td>
+                        <button type="submit" id="btn-entregar" class="btn btn-success" style=" margin: 5px 5px;" disabled>Entregar</button>
+                         </td>  
+                    {%endif%}
+                </tr>
+                </form>
+                {% endfor %}
+            </table>
+            
+            <div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

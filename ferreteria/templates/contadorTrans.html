@@ -1,0 +1,64 @@
+{% extends 'base.html '%}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+
+{% block contenido %}
+{% load humanize %}
+
+<div class="container">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 style="color: darkgreen;">Pedidos Pendientes</h2>
+
+            <a href="{% url 'contador' %}" class="btn btn-primary" style=" margin: 5px 5px; float: right;" >Volver</a>
+            <table class="table table-striped table-hover table-responsive-sm">
+                <tr>
+                    <th>Id Pedido</th>
+                    <th>Fecha Compra</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Tipo Envio</th>
+                    <th>Total</th>
+                    <th class="text-center">Solicitud</th>
+                </tr>
+                {% for p in pedido %}
+                
+                <tr>
+                    <td>{{p.id_pedido}}</td>
+                    <td> {{ p.fecha_compra }}</td>
+                    <td> {{ p.user }}</td>
+                    <td>{{p.estado}}</td>                    
+                    <td>{{p.tipo_envio}}</td>                    
+                    <td>${{p.total | intcomma}}</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <form method="POST" action="{% url 'cont_aprobar' p.id_pedido %}" class="mr-2">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-sm px-3">
+                                    ✔ Aprobar
+                                </button>
+                            </form>
+                            <form method="POST" action="{% url 'cont_rechazar' p.id_pedido %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm px-3">
+                                    ✖ Rechazar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                
+                {% endfor %}
+            </table>
+            <div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

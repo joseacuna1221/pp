@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estiloss.css' %}">
+<style>
+    .profile-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .profile-image {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #198754;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+    }
+    .user-info-box {
+        background-color: #f8f9fa;
+        border-left: 5px solid #198754;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .btn-custom {
+        min-width: 160px;
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+<main class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center text-success">Detalle perfil</h2>
+                    <hr>
+
+                    <!-- Foto de perfil -->
+                    <div class="text-center mb-4">
+                        <img src="{% static 'img/img_perfil.jpg' %}" class="rounded-circle border border-success shadow" alt="Foto de perfil" style="width: 120px; height: 120px; object-fit: cover;">
+                    </div>
+
+                    <!-- Información del usuario -->
+                    <div class="user-info-box p-3 rounded shadow-sm mb-4" style="background-color: #f9f9f9;">
+                        <h5 class="text-center text-success mb-3">Datos del Usuario</h5>
+                        <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+                        <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+                        <p><strong>Apellido:</strong> {{ user.last_name }}</p>
+                        <p><strong>Correo:</strong> {{ user.email }}</p>
+
+                        {% if user.is_superuser %}
+                        <p><strong>Rol:</strong> <span class="badge bg-success">Administrador</span></p>
+
+                        <div class="d-grid gap-3 mt-4">
+                            <a href="{% url 'admin_panel_usuarios' %}" class="btn btn-success">
+                                Administrar Usuarios
+                            </a>
+                            <a href="{% url 'admin_panel_pedidos' %}" class="btn btn-primary">
+                                Administrar Pedidos
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="d-grid gap-3 mt-4">
+                            <a href="{% url 'tienda' %}" class="btn btn-outline-primary">
+                                Ver Mis Pedidos
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-end">
+                        <a href="{% url 'tienda' %}" class="btn btn-outline-success">Ir a Productos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br>
+{% endblock %}

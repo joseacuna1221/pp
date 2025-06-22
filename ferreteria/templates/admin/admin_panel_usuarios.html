@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estiloss.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<main class="container mt-4">
+    
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="mt-2 text-center text-success mb-4 text-dark ">Panel de Administración de Usuarios</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead class="table-success">
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Es Staff</th>
+                        <th>Es Superusuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>
+                            <a href="/admin/auth/user/{{ usuario.id }}/change/" target="_blank">
+                                {{ usuario.username }}
+                            </a>
+                        </td>
+                        <td>{{ usuario.first_name }}</td>
+                        <td>{{ usuario.last_name }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.is_staff }}</td>
+                        <td>{{ usuario.is_superuser }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No hay usuarios registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="p-3">
+                <a href="{% url 'perfil' %}" class="btn btn-success mt-3 w-100 ">Perfil</a>
+                <a href="{% url 'administrador' %}" class="btn btn-outline-success mt-3 w-100 ">Panel administrador</a>
+            </div>
+            </div>
+           
+        </div>
+    </div>
+  <br>
+    
+</main>
+{% endblock %}

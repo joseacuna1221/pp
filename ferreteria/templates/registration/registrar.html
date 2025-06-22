@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estiloss.css' %}">
+{% endblock %}
+{% block contenido %}
+{% load crispy_forms_tags %}
+<main class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Registro de usuario</h2>
+                    <hr>
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        
+                        {{ form|crispy }}
+
+
+                        <input type="submit" value="Registrar" class="btn btn-success" style="float:left">
+                        &nbsp;
+                        <a href="{% url 'login' %}" class="btn btn-outline-success" >Iniciar sesión</a> 
+                        
+                        <a href="{% url 'index' %}" class="btn btn-info" style="float: right;">Inicio</a>
+                       
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br>
+{% endblock %}

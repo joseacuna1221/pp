@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estyle.css' %}">
+{% endblock %}
+{% block contenido %}
+{% load humanize %}
+
+<div class="container">
+    <div class="mb-3">
+        <label><strong>Mostrar precios en:</strong></label><br>
+        <input type="radio" name="moneda" value="clp" checked> Pesos chilenos (CLP)
+        <input type="radio" name="moneda" value="usd" {% if not valor_dolar or valor_dolar == 0 %}disabled{% endif %}> Dólares (USD)
+        {% if not valor_dolar or valor_dolar == 0 %}
+            <span style="color: red; font-weight: bold; margin-left: 10px;">
+                Valor dólar no disponible
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <div><strong>Valor dólar actual:</strong> {{ valor_dolar }}</div>
+
+            <div class="row">
+                {% for p in productos %}
+                <div class="col-12 col-md-6 mb-4 d-flex justify-content-center">
+                    <div class="card shadow-sm rounded" style="width: 100%; max-width: 22rem;">
+                        <a href="{% url 'detalle' p.idProducto %}" class="d-flex justify-content-center mt-3">
+                            <img src="{{ p.imagen.url }}" class="card-img-top mx-auto mt-3" alt="{{ p.nombre }}" style="width: 140px; height: 140px; object-fit: contain; cursor: pointer;">
+                        </a>
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">{{ p.nombre }}</h5>
+                            <p class="card-text text-muted">{{ p.categoria }}</p>
+                            <p class="card-text precio-producto h5 text-primary font-weight-bold" data-precio="{{ p.precio }}">${{ p.precio | intcomma }}</p>
+                            <a href="{% url 'add' p.idProducto %}" class="btn btn-success btn-block mt-3">Agregar al carrito</a>
+                        </div>
+                    </div>      
+                </div>
+                {% endfor %}s
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            {% include 'carrito.html' %}
+        </div>
+    </div>
+</div>
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const valorDolar = parseFloat("{{ valor_dolar|floatformat:2|default:'0' }}");
+    document.querySelectorAll('.precio-producto').forEach(function(el) {
+        el.setAttribute('data-precio-clp', el.getAttribute('data-precio'));
+    });
+
+    function actualizarPrecios(moneda) {
+        document.querySelectorAll('.precio-producto').forEach(function(el) {
+            const precioCLP = parseFloat(el.getAttribute('data-precio-clp'));
+            if (moneda === 'usd' && valorDolar > 0) {
+                const precioUSD = precioCLP / valorDolar;
+                el.textContent = '$' + precioUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+            } else {
+                el.textContent = '$' + precioCLP.toLocaleString('es-CL') + '';
+            }
+        });
+    }
+
+    document.querySelectorAll('input[name="moneda"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            actualizarPrecios(this.value);
+        });
+    });
+});
+</script>
+{% endblock %}
+
+

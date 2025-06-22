@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estiloss.css' %}">
+{% endblock %}
+{% block contenido %}
+<main class="container">
+    <div class="card mt-4 shadow">
+        <div class="card-header bg-success text-white">
+            <h3>Detalle del Pedido #{{ pedido.id_pedido }}</h3>
+            <p><strong>Cliente:</strong> {{ pedido.user.get_full_name }} ({{ pedido.user.email }})</p>
+        </div>
+        <div class="card-body">
+            <p><strong>Fecha:</strong> {{ pedido.fecha_compra }}</p>
+            <p><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>
+            <p><strong>Tipo de Envío:</strong> {{ pedido.get_tipo_envio_display }}</p>
+            <p><strong>Tipo de Pago:</strong> {{ pedido.get_tipo_pago_display }}</p>
+            <hr>
+            <h5>Productos:</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalles_boleta %}
+                    <tr>
+                        <td>{{ item.id_producto.nombre }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ item.subtotal }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3">No hay productos en la boleta.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h5 class="text-end">Total: ${{ pedido.total }}</h5>
+        </div>
+    </div>
+</main>
+<br>
+{% endblock %}
