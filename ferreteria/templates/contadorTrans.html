@@ -1,4 +1,4 @@
-{% extends 'base.html '%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
@@ -32,8 +32,8 @@
                         <td>{{p.id_pedido}}</td>
                         <td>{{ p.fecha_compra }}</td>
                         <td>{{ p.user }}</td>
-                        <td class="d-none d-md-table-cell">{{p.estado}}</td>                    
-                        <td class="d-none d-md-table-cell">{{p.tipo_envio}}</td>                    
+                        <td class="d-none d-md-table-cell">{{p.estado}}</td>
+                        <td class="d-none d-md-table-cell">{{p.tipo_envio}}</td>
                         <td>${{p.total | intcomma}}</td>
                         <td colspan="2">
                             <div class="d-flex flex-column flex-md-row justify-content-center align-items-stretch gap-2">
@@ -52,7 +52,7 @@
                             </div>
                         </td>
                     </tr>
-                    
+
                     {% endfor %}
                 </table>
             </div>

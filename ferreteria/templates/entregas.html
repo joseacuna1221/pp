@@ -1,4 +1,4 @@
-{% extends 'base.html '%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
@@ -33,27 +33,27 @@
                     <td>{{ p.fecha_compra }}</td>
                     <td>{{ p.user }}</td>
                     {% if p.estado == "despachado"%}
-                        <td>Listo para retiro</td>                    
+                        <td>Listo para retiro</td>
                     {%else%}
                         <td>Producto Entregado</td>
                     {%endif%}
-                    
-                    <td>{{p.tipo_envio}}</td>                    
+
+                    <td>{{p.tipo_envio}}</td>
                     <td>${{p.total | intcomma}}</td>
                     {% if p.estado == "despachado"%}
                         <td>
                         <button type="submit" id="btn-entregar" class="btn btn-success" style=" margin: 5px 5px;">Entregar</button>
-                        </td>                     
+                        </td>
                     {%else%}
                         <td>
                         <button type="submit" id="btn-entregar" class="btn btn-success" style=" margin: 5px 5px;" disabled>Entregar</button>
-                         </td>  
+                         </td>
                     {%endif%}
                 </tr>
                 </form>
                 {% endfor %}
             </table>
-            
+
             <div>
             </div>
         </div>

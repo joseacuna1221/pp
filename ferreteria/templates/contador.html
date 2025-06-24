@@ -1,4 +1,4 @@
-{% extends 'base.html '%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
@@ -15,7 +15,7 @@
             <h2 style="color: darkgreen;">Panel Finanzas </h2>
             <h5><strong>Total pedidos: </strong> {{totalPedidos}}</p></h5>
             <h5><strong>Valor dolar Actual: </strong> {{valor_dolar}}</h5>
-            
+
             <form method="get" class="row g-2 align-items-center mb-4 mt-3">
                 <div class="col-auto">
                     <label for="estado" class="col-form-label">Filtrar por estado:</label>
@@ -37,7 +37,7 @@
                 <a href="{% url 'exportar_informe' %}" class="btn btn-admin btn-informe w-100 w-md-auto" style=" margin: 5px 5px" >📄 Informe ventas mensual</a>
                 <a href="{% url 'contadorTrans' %}" class="btn btn-primary w-100 w-md-auto " style=" margin: 5px 5px;" >Ver transferencias</a>
             </div>
-            
+
             <div class="table-responsive">
                 <table class="table table-striped table-hover text-center align-middle">
                     <tr class="table-success">
@@ -57,9 +57,9 @@
                             <span class="d-inline d-md-none">{{ p.fecha_compra|date:"d/m/Y" }}</span>
                         </td>
                         <td>{{ p.user }}</td>
-                        <td class="d-none d-md-table-cell">{{p.estado}}</td>                    
-                        <td class="d-none d-md-table-cell">{{p.tipo_envio}}</td>                    
-                        <td>{{p.tipo_pago}}</td>                    
+                        <td class="d-none d-md-table-cell">{{p.estado}}</td>
+                        <td class="d-none d-md-table-cell">{{p.tipo_envio}}</td>
+                        <td>{{p.tipo_pago}}</td>
                         <td>${{p.total | intcomma}}</td>
                     </tr>
                     {% endfor %}
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 

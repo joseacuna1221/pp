@@ -1,4 +1,4 @@
-{% extends 'base.html '%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
@@ -33,15 +33,15 @@
                         <span class="d-inline d-md-none">{{ p.fecha_compra|date:"d/m/Y" }}</span>
                     </td>
                     <td> {{ p.user }}</td>
-                    <td class="d-none d-md-table-cell">{{p.estado}}</td>                    
-                    <td>{{p.tipo_envio}}</td>                    
+                    <td class="d-none d-md-table-cell">{{p.estado}}</td>
+                    <td>{{p.tipo_envio}}</td>
                     <td class="d-none d-md-table-cell">${{p.total | intcomma}}</td>
-                        {%if p.estado == "despachado"%} 
+                        {%if p.estado == "despachado"%}
                         <td>
                             <button class="btn btn-outline-success" disabled>Preparar</button>
-                        </td>    
+                        </td>
                         {%else%}
-                            <td><a href="{% url 'bodegaPedido' p.id_pedido %}" class="btn btn-outline-success">Preparar</a></td>               
+                            <td><a href="{% url 'bodegaPedido' p.id_pedido %}" class="btn btn-outline-success">Preparar</a></td>
                         {%endif%}
                 </tr>
                     {%endif%}
