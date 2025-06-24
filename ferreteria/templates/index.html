@@ -2,42 +2,90 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    /* Estilos específicos para la página de inicio */
+    .slider .list .item:first-child .content {
+        padding-right: 0;
+    }
+    
+    .slider .list .item .content .title {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 20px;
+    }
+    
+    .slider .list .item .content .description {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin-bottom: 30px;
+    }
+    
+    .slider .list .item .content .button button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    @media (max-width: 992px) {
+        .slider .list .item .content .title {
+            font-size: 2.5rem;
+        }
+        
+        .slider .list .item .content .description {
+            font-size: 1rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .slider .list .item .content {
+            top: 15%;
+            text-align: center;
+        }
+        
+        .slider .list .item .content .title {
+            font-size: 2rem;
+        }
+        
+        .slider .list .item .content .description {
+            font-size: 0.9rem;
+            margin: 0 auto 20px;
+        }
+    }
+</style>
 {% endblock %}
 
 
 
 {% block contenido %}
     <script>
-        const toggleBtn = document.querySelector('.toggle-btn')
-        const toggleBtnIcon = document.querySelector('.toggle-btn i')
-        const dropDownMenu = document.querySelector('.dropdown_menu')
-        
-        toggleBtn.onclick = function(){
-            dropDownMenu.classList.toggle('open')
-        }
-   </script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.querySelector('.toggle-btn')
+            const dropDownMenu = document.querySelector('.dropdown_menu')
+
+            if (toggleBtn && dropDownMenu) {
+                toggleBtn.addEventListener('click', function () {
+                    dropDownMenu.classList.toggle('open')
+                })
+            }
+        })
+    </script>
     <div class="slider">
         <div class="list">
             <div class="item">
-                <img src="{% static 'img/foto1.webp' %}" alt="">
-
-                <div class="content">
-                    <div class="title"> SABEMOS LO QUE</div>
-                    <div class="title"> NECESITAS</div>
-                    <div class="description">
-                        ¡Descubre una nueva era en el hogar sostenible!
-                         Con nuestros materiales innovadores, transforma tu espacio. 
-                         Desde linternas recargables hasta estufas de pellets de madera, escaleras plegables y más,
-                          ¡haz del cuidado del planeta, una parte importe en tu vida!
-                    </div>
-                    <div class="button">
-                        <button> SABER MÁS</button>
-                    </div>
-                    
-
-                </div>
-                
-            </div>
+    <img src="{% static 'img/foto1.webp' %}" alt="">
+      <div class="content">
+              <div class="title">SABEMOS LO QUE NECESITAS</div>
+              <div class="description">
+                  ¡Descubre una nueva era en el hogar sostenible! 
+                  Con nuestros materiales innovadores, transforma tu espacio. 
+                  Desde linternas recargables hasta estufas de pellets de madera, 
+                  escaleras plegables y más, ¡haz del cuidado del planeta una parte 
+                  importante en tu vida!
+              </div>
+              <div class="button">
+                  <button>SABER MÁS</button>
+              </div>
+          </div>
+      </div>
 
             <div class="item">
                 <img src="{% static 'img/foto2.jpg' %}" alt="">

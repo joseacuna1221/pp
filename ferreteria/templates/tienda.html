@@ -12,16 +12,19 @@
         <input type="radio" name="moneda" value="clp" checked> Pesos chilenos (CLP)
         <input type="radio" name="moneda" value="usd" {% if not valor_dolar or valor_dolar == 0 %}disabled{% endif %}> Dólares (USD)
         {% if not valor_dolar or valor_dolar == 0 %}
-            <span style="color: red; font-weight: bold; margin-left: 10px;">
-                Valor dólar no disponible
-            </span>
+        <span style="color: red; font-weight: bold; margin-left: 10px;">
+            Valor dólar no disponible
+        </span>
         {% endif %}
     </div>
-
+    
     <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-4 order-1 order-md-2 mb-4">
+            {% include 'carrito.html' %}
+        </div>
+        <div class="col-12 col-md-8 order-2 order-md-1">
             <div><strong>Valor dólar actual:</strong> {{ valor_dolar }}</div>
-
+            
             <div class="row">
                 {% for p in productos %}
                 <div class="col-12 col-md-6 mb-4 d-flex justify-content-center">
@@ -41,9 +44,6 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
-            {% include 'carrito.html' %}
-        </div>
     </div>
 </div>
     

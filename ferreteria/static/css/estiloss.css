@@ -16,15 +16,12 @@ body{
     width: 100%;
 }
 /* Header section*/
-header{
-    width: 1140px;
+header {
+    width: 100%;
     max-width: 1200px;
     margin: auto;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 100;
+    padding: 0 15px;
+    height: auto;
 }
 header .navbar ul{
     float: right;
@@ -32,7 +29,7 @@ header .navbar ul{
 }
 header .navbar ul li{
     display: inline-block;
-    line-height: 80px;
+    line-height: 30px;
     margin: 0 5px;
 }
 header .navbar a{
@@ -152,6 +149,53 @@ header .dropdown-menu a:hover{
     font-size: 16px;
 }
 
+@media (max-width: 768px) {
+    .navbar .links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(0,0,0,0.85);
+        padding: 15px;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .navbar .links.active {
+        display: flex;
+    }
+
+    .toggle-btn {
+        display: block;
+    }
+}
+
+@media(max-width: 992px){
+    header .navbar .links{
+        display: none;
+    }
+    header .toggle-btn i{
+        justify-items: right;
+        display: block;
+        
+    }
+}
+
+@media (max-width: 768px) {
+    .pie .section {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .pie .derechos {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 5px;
+    }
+}
 
 /*Footer section*/
 .pie{

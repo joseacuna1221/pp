@@ -36,26 +36,41 @@ from reportlab.lib.enums import TA_CENTER
 
 
 #Banco central
+import requests
+from requests.auth import HTTPProxyAuth
+
 def obtener_valor_dolar():
-    user = "es.ibarra@duocuc.cl"
-    password = "Uwu7832!"
-    siete = bcchapi.Siete(user, password)
-    today = datetime.now()
-    today = today.strftime("%Y-%m-%d")
-    cuadro = siete.cuadro(
-        series=["F073.TCO.PRE.Z.D"],
-        nombres = ["dolar"],
-        desde = today,
-        hasta = today,
-        observado = {"dolar":"last"}
-    )
+    try:
+        # Configuración de proxy (si es necesario en PythonAnywhere)
+        proxies = {
+            'http': 'http://proxy.server:3128',  # Reemplaza con el proxy correcto
+            'https': 'http://proxy.server:3128',
+        }
+        auth = HTTPProxyAuth('usuario_proxy', 'contraseña_proxy')  # Si requiere autenticación
 
-    if not cuadro.empty:
-        valor_dolar = cuadro.iloc[0]["dolar"]
-    else:
-        valor_dolar = 0
+        # Tu lógica actual para consultar la API del Banco Central
+        # Ejemplo (ajusta según tu implementación real):
+        response = requests.get(
+            "https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx",
+            params={
+                'user': 'es.ibarra@duocuc.cl',
+                'pass': 'Uwu7832!',
+                'firstdate': '2025-06-23',
+                'lastdate': '2025-06-23',
+                'timeseries': 'F073.TCO.PRE.Z.D',
+                'function': 'GetSeries'
+            },
+            proxies=proxies,
+            auth=auth,
+            timeout=10  # Evita esperas infinitas
+        )
+        response.raise_for_status()  # Lanza error si la respuesta no es 200 OK
+        datos = response.json()
+        return datos["valor_dolar"]  # Ajusta según la estructura real de la respuesta
 
-    return valor_dolar
+    except Exception as e:
+        print(f"Error al obtener el dólar: {e}")
+        return 950  # Valor por defecto si falla
 #Tienda y funcion banco Central
 @login_required
 def tienda(request):

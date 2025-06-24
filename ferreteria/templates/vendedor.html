@@ -9,40 +9,46 @@
 {% block contenido %}
 {% load humanize %}
 
-<div class="container">
+<div class="container my-3">
     <div class="card mb-3">
         <div class="card-body">
             <h2 style="color: darkgreen;">Pedidos Pagados</h2>
-            <a href="{% url 'lista' %}" class="btn btn-admin btn-productos">🛠️ Administrar Productos</a>
-            <a href="{% url 'entregas' %}" class="btn btn-primary btn-entregas" style=" margin: 5px 5px; float: right;" >🚚 Entregar Producto </a>
-            <table class="table table-striped table-hover table-responsive-sm">
-                <tr>
-                    <th>Id Pedido</th>
-                    <th>Fecha Compra</th>
-                    <th>Cliente</th>
-                    <th>Estado</th>
-                    <th>Tipo Envio</th>
-                    <th>Total</th>
-                    <th>Solicitud</th>
-                </tr>
-                <!-- Cambiar el if de estado a pagado despues -->
-                {% for p in pedido %}
-                <tr>
-                    <td>{{p.id_pedido}}</td>
-                    <td> {{ p.fecha_compra }}</td>
-                    <td> {{ p.user }}</td>
-                    <td>{{p.estado}}</td>                    
-                    <td>{{p.tipo_envio}}</td>                    
-                    <td>${{p.total | intcomma}}</td>
-                    <td><a href="{% url 'vendedorDetalle' p.id_pedido %}" class="btn btn-outline-success">Ver Solicitud</a></td>               
-                </tr>
-                {% endfor %}
-            </table>
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-1 ">
+                <a href="{% url 'lista' %}" class="btn btn-admin btn-productos flex-fill text-nowrap" style=" margin: 5px 5px;">🛠️ Administrar Productos</a>
+                <a href="{% url 'entregas' %}" class="btn btn-primary btn-entregas flex-fill text-nowrap" style=" margin: 5px 5px;" >🚚 Entregar Producto </a>
+            </div>
+            <div class="table-responsive">
+
+                    <table class="table table-striped table-hover text-center align-middle">
+                        <tr>
+                            <th>Id Pedido</th>
+                            <th>Fecha Compra</th>
+                            <th>Cliente</th>
+                            <th class="d-none d-md-table-cell">Tipo Envio</th>
+                            <th>Total</th>
+                            <th>Solicitud</th>
+                        </tr>
+                            <!-- Cambiar el if de estado a pagado despues -->
+                            {% for p in pedido %}
+                        <tr>
+                            <td>{{p.id_pedido}}</td>
+                            <td data-label="Fecha">
+                                <span class="d-none d-md-inline">{{ p.fecha_compra|date:"d/m/Y" }}</span>
+                                <span class="d-inline d-md-none">{{ p.fecha_compra|date:"d/m/Y" }}</span>
+                            </td>
+                            <td> {{ p.user }}</td>
+                            <td class="d-none d-md-table-cell">{{p.tipo_envio}}</td>                    
+                            <td>${{p.total | intcomma}}</td>
+                            <td><a href="{% url 'vendedorDetalle' p.id_pedido %}" class="btn btn-outline-success">Ver Solicitud</a></td>               
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             <div>
             </div>
         </div>
     </div>
-
+    
 </div>
 
 {% endblock %}

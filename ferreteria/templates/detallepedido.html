@@ -5,62 +5,67 @@
 {% endblock %}
 {% block contenido %}
 {% load humanize %}
-<div class="container">
-    <div class="card">
-        {% if detalles %}
-            <h3> Detalles Pedido: {{detalles.0.id_pedido}} </h3><br>
-            <h4> Estado del pedido: Pedido {{detalles.0.id_pedido.estado}} </h4><br>
-            <h4> Total: ${{detalles.0.id_pedido.total |intcomma}} </h4><br>
-        {% elif productos %}
-            <h3> Detalles de tu Pedido </h3><br>
-            <h4> Fecha: {{fecha}} </h4><br>
-            <h4> Tipo de envío: {{tipo_envio}} </h4><br>
-            <h4> Total: ${{total |intcomma}} </h4><br>
-        {% endif %}
-        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Img</th>
-                    <th>Código Producto</th>
-                    <th>Nombre Producto</th>
-                    <th>Categoria</th>
-                    <th>Cantidad</th>
-                    <th>Valor Unitario</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if detalles %}
-                    {% for d in detalles %}
+<div class="container my-4">
+    <div class="card shadow-sm"> 
+
+        <div class="card-body">
+            {% if detalles %}
+                <h3 class="text-success mb-3"> Detalles Pedido: #{{detalles.0.id_pedido}} </h3><br>
+                <h5><strong>Estado del pedido:</strong> {{detalles.0.id_pedido.estado}}</p></h5>
+                <h5><strong>Total:</strong> ${{detalles.0.id_pedido.total | intcomma}}</h5>
+            {% elif productos %}
+                <h3 class="text-success mb-3">🧾 Detalles de tu Pedido</h3>
+                <p><strong>Fecha:</strong> {{fecha}}</p>
+                <p><strong>Tipo de envío:</strong> {{tipo_envio}}</p>
+                <p><strong>Total:</strong> ${{total | intcomma}}</p>
+            {% endif %}
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-success">
                     <tr>
-                        <td><img src="{{ d.id_producto.imagen.url }}" style="height: 60px; width: 60px;"></td>
-                        <td>{{ d.id_producto.idProducto }}</td>
-                        <td>{{ d.id_producto.nombre }}</td>
-                        <td>{{ d.id_producto.categoria }}</td>
-                        <td>{{ d.cantidad }}</td>
-                        <td>${{ d.id_producto.precio | intcomma}}</td>
-                        <td>${{ d.subtotal | intcomma}}</td>
+                        <th>Img</th>
+                        <th>Código Producto</th>
+                        <th>Nombre Producto</th>
+                        <th>Categoria</th>
+                        <th>Cantidad</th>
+                        <th>Valor Unitario</th>
+                        <th>Subtotal</th>
                     </tr>
-                    {% endfor %}
-                {% elif productos %}
-                    {% for producto in productos %}
-                    <tr>
-                        <td><img src="{{ producto.imagen.url }}" style="height: 60px; width: 60px;"></td>
-                        <td>{{ producto.idProducto }}</td>
-                        <td>{{ producto.nombre }}</td>
-                        <td>{{ producto.categoria }}</td>
-                        <td>{{ cantidad }}</td> <!-- Necesitarías pasar esta información -->
-                        <td>${{ producto.precio | intcomma}}</td>
-                        <td>${{ producto.precio | intcomma}}</td>
-                    </tr>
-                    {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
-        <!-- <a href="{% url 'tienda' %}" class="btn btn-warning" style=" margin: 5px 5px;">Volver </a> -->
-        <a href="javascript:history.back()" class="btn btn-warning" style=" margin: 5px 5px;">Volver</a>
+                </thead>
+                <tbody>
+                    {% if detalles %}
+                        {% for d in detalles %}
+                        <tr>
+                            <td data-label="Imagen"><img src="{{ d.id_producto.imagen.url }}" style="height: 60px; width: 60px;" class="rounded"></td>
+                            <td data-label="Código">{{ d.id_producto.idProducto }}</td>
+                            <td data-label="Nombre">{{ d.id_producto.nombre }}</td>
+                            <td data-label="Categoría">{{ d.id_producto.categoria }}</td>
+                            <td data-label="Cantidad">{{ d.cantidad }}</td>
+                            <td data-label="Valor Unitario">${{ d.id_producto.precio | intcomma }}</td>
+                            <td data-label="Subtotal">${{ d.subtotal | intcomma }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% elif productos %}
+                        {% for producto in productos %}
+                        <tr>
+                            <td data-label="Imagen"><img src="{{ producto.imagen.url }}" style="height: 60px; width: 60px;" class="rounded"></td>
+                            <td data-label="Código">{{ producto.idProducto }}</td>
+                            <td data-label="Nombre">{{ producto.nombre }}</td>
+                            <td data-label="Categoría">{{ producto.categoria }}</td>
+                            <td data-label="Cantidad">{{ cantidad }}</td>
+                            <td data-label="Valor Unitario">${{ producto.precio | intcomma }}</td>
+                            <td data-label="Subtotal">${{ producto.precio | intcomma }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <br>
+    <!-- <a href="{% url 'tienda' %}" class="btn btn-warning" style=" margin: 5px 5px;">Volver </a> -->
+    <a href="javascript:history.back()" class="btn btn-warning" style=" margin: 5px 5px;">Volver</a>
+</div>
+<br>
 </div>
 {% endblock %}

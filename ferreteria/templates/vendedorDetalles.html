@@ -5,55 +5,60 @@
 {% endblock %}
 {% block contenido %}
 {% load humanize %}
-<div class="container">
+<div class="container my-3">
     <div class="card">
-        <h3> Detalles Pedido: {{detalles.0.id_pedido}} </h3><br>
-        <h4> Estado del pedido: Pedido {{detalles.0.id_pedido.estado}} </h4><br>
-        <h4> Total: ${{detalles.0.id_pedido.total |intcomma}} </h4><br>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Img</th>
-                        <th>Cliente</th>
-                        <th>Código Producto</th>
-                        <th>Nombre Producto</th>
-                        <th>Categoria</th>
-                        <th>Cantidad</th>
-                        <th>Valor Unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
+        <div class="card-body">
+            <h3 class="text-success mb-3"> Detalles Pedido: #{{detalles.0.id_pedido}} </h3><br>
+            <h5> <strong>Estado del pedido:</strong> Pedido {{detalles.0.id_pedido.estado}} </h5>
+            <h5> <strong>Total: $</strong>{{detalles.0.id_pedido.total |intcomma}} </h5>
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover text-center align-middle">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Img</th>
+                            <th>Cliente</th>
+                            <th>Código Producto</th>
+                            <th>Nombre Producto</th>
+                            <th>Categoria</th>
+                            <th>Cantidad</th>
+                            <th>Valor Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
                 <tbody>
                     {% for d in detalles%}
-                    <tr>
-                        <td>
-                            <img src="{{ d.id_producto.imagen.url }}" style="height: 60px; width: 60px;">
-                        </td>
-                        <td>{{ d.id_pedido.user }}</td>
-                        <td>{{ d.id_producto.idProducto }}</td>
-                        <td>{{ d.id_producto.nombre }}</td>
-                        <td>{{ d.id_producto.categoria }}</td>
-                        <td>{{ d.cantidad }}</td>
-                        <td>${{ d.id_producto.precio | intcomma}}</td>
-                        <td>${{ d.subtotal | intcomma}}</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <img src="{{ d.id_producto.imagen.url }}" style="height: 60px; width: 60px;">
+                            </td>
+                            <td>{{ d.id_pedido.user }}</td>
+                            <td>{{ d.id_producto.idProducto }}</td>
+                            <td>{{ d.id_producto.nombre }}</td>
+                            <td>{{ d.id_producto.categoria }}</td>
+                            <td>{{ d.cantidad }}</td>
+                            <td>${{ d.id_producto.precio | intcomma}}</td>
+                            <td>${{ d.subtotal | intcomma}}</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
                 </tr>
-            </table>
-            <div class="d-flex justify-content-center mt-3">
-                <form method="POST" action="{% url 'preparar' detalles.0.id_pedido %}" class="mr-2">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success px-4">✔ Aceptar</button>
-                </form>
-
-                <form method="POST" action="{% url 'rechazar' detalles.0.id_pedido %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-danger px-4">✖ Rechazar</button>
-                </form>
+                </table>
             </div>
-        <a href="{% url 'vendedor' %}" class="btn btn-warning" style=" margin: 5px 5px;">Volver </a>
+            <div class="d-flex justify-content-center mt-3">
+                    <form method="POST" action="{% url 'preparar' detalles.0.id_pedido %}" class="mr-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success px-4">✔ Aceptar</button>
+                    </form>
+                    
+                    <form method="POST" action="{% url 'rechazar' detalles.0.id_pedido %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger px-4">✖ Rechazar</button>
+                    </form>
+                </div>
+                <a href="{% url 'vendedor' %}" class="btn btn-warning" style=" margin: 5px 5px;">Volver </a>
+            </div>
+        </div>
+        <br>
     </div>
-    <br>
-</div>
-{% endblock %}
+    {% endblock %}

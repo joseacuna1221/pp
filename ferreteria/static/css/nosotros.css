@@ -14,15 +14,12 @@ a{
     text-decoration: none;
 }
 /* Header section*/
-header{
-    width: 1140px;
+header {
+    width: 100%;
     max-width: 1200px;
     margin: auto;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 100;
+    padding: 0 15px;
+    height: auto;
 }
 header .navbar ul{
     float: right;
